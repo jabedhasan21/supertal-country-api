@@ -1,5 +1,6 @@
 package com.supertal.assignment.model;
 
+import com.supertal.assignment.model.fixer.FCurrencyResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,4 +19,5 @@ public class Country {
     private String name;
     private Integer population;
     private Map<String, Currency> currency;
+    private FCurrencyResponse currencyRate;
 }

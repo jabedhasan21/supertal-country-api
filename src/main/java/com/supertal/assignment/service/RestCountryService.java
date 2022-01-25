@@ -14,5 +14,5 @@ import java.util.List;
 public interface RestCountryService {
 
     @GET("/v3.1/name/{name}")
-    public Call<List<RCountry>> getCountry(@Path("name") String name);
+    Call<List<RCountry>> getCountry(@Path("name") String name);
 }

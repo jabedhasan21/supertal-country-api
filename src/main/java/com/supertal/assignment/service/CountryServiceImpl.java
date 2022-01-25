@@ -1,14 +1,16 @@
 package com.supertal.assignment.service;
 
 import com.supertal.assignment.model.Country;
-import com.supertal.assignment.model.restcountries.CountryList;
+import com.supertal.assignment.model.Currency;
+import com.supertal.assignment.model.fixer.FCurrencyResponse;
 import com.supertal.assignment.model.restcountries.RCountry;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Jabed Hasan<jabedhasan21@gmail.com>
@@ -17,11 +19,14 @@ import java.util.List;
 
 @Service
 public class CountryServiceImpl implements CountryService {
+
+    @Value("${fixer.access_key:''}")
+    private String fixerAccessKey;
+
     @Override
     public Country getByName(String name) throws Exception {
         Country country = new Country();
         RestCountryService service = RetrofitServiceGenerator.createService(RestCountryService.class);
-
         Call<List<RCountry>> callAsync = service.getCountry(name);
         //callAsync
         /* callAsync.enqueue(new Callback<List<RCountry>>() {
@@ -46,6 +51,25 @@ public class CountryServiceImpl implements CountryService {
             country.setPopulation(countries.get(0).getPopulation());
             country.setCurrency(countries.get(0).getCurrency());
         }
+
+        String symbols = "USD";
+        for (Map.Entry<String, Currency> pair : country.getCurrency().entrySet()) {
+            symbols = pair.getKey();
+            System.out.println(String.format("Key (name) is: %s, Value (age) is : %s", pair.getKey(), pair.getValue()));
+        }
+
+        // Fixer
+
+        CurrencyRateService currencyRateService = FixerServiceGenerator.createService(CurrencyRateService.class);
+
+        Call<FCurrencyResponse> currencyCallSync = currencyRateService.getLatestExchange(fixerAccessKey, symbols);
+
+        Response<FCurrencyResponse> fCurrencyResponse = currencyCallSync.execute();
+        FCurrencyResponse crncyRespose = fCurrencyResponse.body();
+        if (crncyRespose != null) {
+            country.setCurrencyRate(crncyRespose);
+        }
+
         return country;
     }
 }
