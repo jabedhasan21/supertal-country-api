@@ -2,7 +2,6 @@ package com.supertal.assignment.model.restcountries;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.supertal.assignment.model.Currency;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,13 +15,13 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class RCountry {
+public class RestCountryResponse {
 
-    private Name name;
+    private CountryName name;
 
     private Integer population;
 
     @SerializedName("currencies")
     @Expose
-    private Map<String, Currency> currency;
+    private Map<String, RestCurrencyResponse> currency;
 }

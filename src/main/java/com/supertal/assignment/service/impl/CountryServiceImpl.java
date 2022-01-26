@@ -1,14 +1,15 @@
 package com.supertal.assignment.service.impl;
 
+import com.supertal.assignment.exception.EntityNotFoundException;
 import com.supertal.assignment.model.Country;
-import com.supertal.assignment.model.Currency;
-import com.supertal.assignment.model.fixer.FCurrencyResponse;
-import com.supertal.assignment.model.restcountries.RCountry;
+import com.supertal.assignment.model.restcountries.RestCurrencyResponse;
+import com.supertal.assignment.model.fixer.FixerCurrencyResponse;
+import com.supertal.assignment.model.restcountries.RestCountryResponse;
 import com.supertal.assignment.service.CountryService;
 import com.supertal.assignment.service.CurrencyRateService;
 import com.supertal.assignment.service.FixerServiceGenerator;
 import com.supertal.assignment.service.RestCountryService;
-import com.supertal.assignment.service.RetrofitServiceGenerator;
+import com.supertal.assignment.service.CountryServiceGenerator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
@@ -31,50 +32,35 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public Country getByName(String name) throws Exception {
         Country country = new Country();
-        RestCountryService service = RetrofitServiceGenerator.createService(RestCountryService.class);
-        Call<List<RCountry>> callAsync = service.getCountry(name);
-        //callAsync
-        /* callAsync.enqueue(new Callback<List<RCountry>>() {
-            @Override
-            public void onResponse(Call<List<RCountry>> call, Response<List<RCountry>> response) {
-                List<RCountry> countries = response.body();
-                System.out.println(countries);
-            }
-
-            @Override
-            public void onFailure(Call<List<RCountry>> call, Throwable throwable) {
-                System.out.println(throwable.getMessage());
-            }
-        });*/
-
+        RestCountryService service = CountryServiceGenerator.createService(RestCountryService.class);
+        Call<List<RestCountryResponse>> countryCallSync = service.getCountry(name);
         //Sync Call
-        Response<List<RCountry>> response = callAsync.execute();
-        List<RCountry> countries = response.body();
+        Response<List<RestCountryResponse>> response = countryCallSync.execute();
+        List<RestCountryResponse> countries = response.body();
 
-        if (countries != null && countries.size() > 0) {
-            country.setName(countries.get(0).getName().getOfficial());
-            country.setPopulation(countries.get(0).getPopulation());
-            country.setCurrency(countries.get(0).getCurrency());
+        if (countries == null || countries.size() == 0) {
+            throw new EntityNotFoundException(Country.class, "name", name);
         }
+        country.setName(countries.get(0).getName().getOfficial());
+        country.setPopulation(countries.get(0).getPopulation());
+        country.setCurrency(countries.get(0).getCurrency());
 
         String symbols = "USD";
-        for (Map.Entry<String, Currency> pair : country.getCurrency().entrySet()) {
+        for (Map.Entry<String, RestCurrencyResponse> pair : country.getCurrency().entrySet()) {
             symbols = pair.getKey();
             System.out.println(String.format("Key (name) is: %s, Value (age) is : %s", pair.getKey(), pair.getValue()));
         }
 
         // Fixer
-
         CurrencyRateService currencyRateService = FixerServiceGenerator.createService(CurrencyRateService.class);
 
-        Call<FCurrencyResponse> currencyCallSync = currencyRateService.getLatestExchange(fixerAccessKey, symbols);
+        Call<FixerCurrencyResponse> currencyCallSync = currencyRateService.getLatestExchange(fixerAccessKey, symbols);
 
-        Response<FCurrencyResponse> fCurrencyResponse = currencyCallSync.execute();
-        FCurrencyResponse crncyRespose = fCurrencyResponse.body();
-        if (crncyRespose != null) {
-            country.setCurrencyRate(crncyRespose);
+        Response<FixerCurrencyResponse> fCurrencyResponse = currencyCallSync.execute();
+        FixerCurrencyResponse fixerCurrencyResponse = fCurrencyResponse.body();
+        if (fixerCurrencyResponse != null) {
+            country.setCurrencyRate(fixerCurrencyResponse);
         }
-
         return country;
     }
 }

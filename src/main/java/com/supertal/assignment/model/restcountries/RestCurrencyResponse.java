@@ -1,4 +1,4 @@
-package com.supertal.assignment.model;
+package com.supertal.assignment.model.restcountries;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Currency {
+public class RestCurrencyResponse {
     private String name;
     private String symbol;
 }

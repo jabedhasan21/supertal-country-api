@@ -1,11 +1,11 @@
 package com.supertal.assignment.model;
 
-import com.supertal.assignment.model.fixer.FCurrencyResponse;
+import com.supertal.assignment.model.fixer.FixerCurrencyResponse;
+import com.supertal.assignment.model.restcountries.RestCurrencyResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,6 +18,6 @@ import java.util.Map;
 public class Country {
     private String name;
     private Integer population;
-    private Map<String, Currency> currency;
-    private FCurrencyResponse currencyRate;
+    private Map<String, RestCurrencyResponse> currency;
+    private FixerCurrencyResponse currencyRate;
 }

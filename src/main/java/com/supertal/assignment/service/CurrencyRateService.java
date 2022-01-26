@@ -1,6 +1,6 @@
 package com.supertal.assignment.service;
 
-import com.supertal.assignment.model.fixer.FCurrencyResponse;
+import com.supertal.assignment.model.fixer.FixerCurrencyResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -12,5 +12,5 @@ import retrofit2.http.Query;
  */
 public interface CurrencyRateService {
     @GET("/api/latest")
-    Call<FCurrencyResponse> getLatestExchange(@Query("access_key") String access_key, @Query("symbols") String symbols);
+    Call<FixerCurrencyResponse> getLatestExchange(@Query("access_key") String access_key, @Query("symbols") String symbols);
 }

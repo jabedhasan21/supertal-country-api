@@ -2,7 +2,6 @@ package com.supertal.assignment.model.fixer;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.supertal.assignment.model.Currency;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,7 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FCurrencyResponse {
+public class FixerCurrencyResponse {
     private Long timestamp;
     private String base;
     @SerializedName("rates")
