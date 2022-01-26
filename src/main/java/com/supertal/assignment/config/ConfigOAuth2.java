@@ -2,6 +2,7 @@ package com.supertal.assignment.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,8 +20,19 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
  */
 @Configuration
 public class ConfigOAuth2 extends AuthorizationServerConfigurerAdapter {
-    private String clientId = "pixeltrice";
-    private String clientSecret = "pixeltrice-secret-key";
+
+    @Value("${user.oauth.clientId}")
+    private String clientId;
+
+    @Value("${user.oauth.clientSecret}")
+    private String clientSecret;
+
+    @Value("${user.oauth.accessTokenValidity}")
+    private int accessTokenValidity;
+
+    @Value("${user.oauth.refreshTokenValidity}")
+    private int refreshTokenValidity;
+
     private String privateKey = "-----BEGIN RSA PRIVATE KEY-----\n" +
             "MIIEogIBAAKCAQEArldvPHHuq7yQo+egIJGTeR1TAR4qM6qcFHdwggNLA5pM9i5Y\n" +
             "IqF10r93CybYSEp5ER6NrD4zmxZ02yMh4gtnnU/U70Ca+1s00i5r3xtnJFcQCx25\n" +
@@ -94,8 +106,8 @@ public class ConfigOAuth2 extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory().withClient(clientId).secret(passwordEncoder.encode(clientSecret)).scopes("read", "write")
-                .authorizedGrantTypes("password", "refresh_token").accessTokenValiditySeconds(20000)
-                .refreshTokenValiditySeconds(20000);
+                .authorizedGrantTypes("password", "refresh_token").accessTokenValiditySeconds(accessTokenValidity)
+                .refreshTokenValiditySeconds(refreshTokenValidity);
 
     }
 }
