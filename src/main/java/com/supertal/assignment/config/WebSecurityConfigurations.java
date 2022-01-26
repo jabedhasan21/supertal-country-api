@@ -1,6 +1,6 @@
-package com.supertal.assignment.oauth2;
+package com.supertal.assignment.config;
 
-import com.supertal.assignment.service.auth.UsersService;
+import com.supertal.assignment.service.impl.UsersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,11 +23,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class UsersSecurityConfigurations extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfigurations extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    private UsersService usersService;
+    private UsersServiceImpl usersService;
 
 
     @Bean

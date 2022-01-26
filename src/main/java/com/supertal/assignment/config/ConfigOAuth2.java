@@ -1,4 +1,4 @@
-package com.supertal.assignment.oauth2;
+package com.supertal.assignment.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

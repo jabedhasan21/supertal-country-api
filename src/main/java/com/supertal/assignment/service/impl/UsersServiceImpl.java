@@ -1,10 +1,9 @@
-package com.supertal.assignment.service.auth;
+package com.supertal.assignment.service.impl;
 
-import com.supertal.assignment.model.UsersHelper;
+import com.supertal.assignment.model.auth.UsersHelper;
 import com.supertal.assignment.model.auth.UsersPojo;
 import com.supertal.assignment.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Service;
  * @created on 26/01/2022 - 20:18
  */
 @Service
-public class UsersService implements UserDetailsService {
+public class UsersServiceImpl implements UserDetailsService {
 
     @Autowired
     UsersRepository usersRepository;

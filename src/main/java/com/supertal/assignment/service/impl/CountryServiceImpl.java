@@ -1,9 +1,14 @@
-package com.supertal.assignment.service;
+package com.supertal.assignment.service.impl;
 
 import com.supertal.assignment.model.Country;
 import com.supertal.assignment.model.Currency;
 import com.supertal.assignment.model.fixer.FCurrencyResponse;
 import com.supertal.assignment.model.restcountries.RCountry;
+import com.supertal.assignment.service.CountryService;
+import com.supertal.assignment.service.CurrencyRateService;
+import com.supertal.assignment.service.FixerServiceGenerator;
+import com.supertal.assignment.service.RestCountryService;
+import com.supertal.assignment.service.RetrofitServiceGenerator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;

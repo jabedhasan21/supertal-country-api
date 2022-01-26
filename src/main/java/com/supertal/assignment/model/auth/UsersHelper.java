@@ -1,4 +1,4 @@
-package com.supertal.assignment.model;
+package com.supertal.assignment.model.auth;
 
 import com.supertal.assignment.model.auth.UsersPojo;
 import org.springframework.security.core.userdetails.User;
