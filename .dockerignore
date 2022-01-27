@@ -1,0 +1,16 @@
+# ignore .git and .cache folders
+.git
+
+# ignore all markdown files (md)
+*.md
+
+# ignore sensitive files
+
+# ignore auto-generated folders
+target/classes
+target/generated-sources
+target/generated-test-sources
+target/maven-archiver
+target/maven-status
+target/surefire
+target/test-classes

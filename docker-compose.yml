@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+  mongo:
+    image: mongo:5.0.4
+    container_name: $MONGO_HOST_NAME
+    hostname: $MONGO_HOST_NAME
+    restart: unless-stopped
+    ports:
+      - $MONGO_HOST_PORT:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_ROOT_PASSWORD
+    networks:
+      - main-network
+    command: [ "--bind_ip", "0.0.0.0" ]
+
+  stockapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: $APP_NAME
+    container_name: $APP_NAME
+    restart: on-failure
+    depends_on:
+      - mongo
+    ports:
+      - $SERVER_HOST_PORT:8080
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_PROFILES_ACTIVE=$APP_ENV
+      - SPRING_APPLICATION_NAME=$APP_NAME
+      - MONGODB_AUTHENTICATION_DATABASE=admin
+      - MONGODB_HOST=$MONGO_HOST_NAME
+      - MONGODB_PORT=27017
+      - MONGODB_USERNAME=$MONGO_ROOT_USERNAME
+      - MONGODB_PASSWORD=$MONGO_ROOT_USERNAME
+      - MONGODB_DATABASE=$MONGO_DB
+    networks:
+      - main-network
+
+networks:
+  main-network:
+    external:
+      name: $NETWORK_NAME
