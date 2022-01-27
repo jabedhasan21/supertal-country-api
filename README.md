@@ -23,7 +23,7 @@
   ```
   mongodb.host=localhost
   mongodb.port=27018
-  mongodb.database=stocks_db
+  mongodb.database=country_db
   mongodb.authentication-database=admin
   mongodb.username=root
   mongodb.password=root
@@ -39,7 +39,7 @@
   * MongoDB
     * We need to update this `src/main/resources/application.properties` file according to the local configuration.
 ### Run
-* To be able to run this Spring Boot app we need to build it first.
+* To run this Spring Boot app we need to build it first.
 * To build and package a Spring Boot app into a single executable Jar file with a Maven, we have to use the below command.
 * We need to run it from the project folder which contains the pom.xml file.
 * This command will generate an application packaged as an executable jar file.
