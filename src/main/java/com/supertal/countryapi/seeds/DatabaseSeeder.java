@@ -71,6 +71,7 @@ public class DatabaseSeeder {
             for (Object dbObject : dbObjects) {
                 Document document = null;
                 try {
+                    //ToDo: Hash password field
                     document = new Document(parser.parseJson(mapper.writeValueAsString(dbObject)));
                     mongoTemplate.insert(document, key);
                 } catch (JsonProcessingException e) {
