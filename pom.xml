@@ -11,7 +11,7 @@
     </parent>
     <groupId>com.supertal</groupId>
     <artifactId>country-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>supertal-country-api</name>
     <description>This is a technical assignment for supertal</description>
     <properties>
