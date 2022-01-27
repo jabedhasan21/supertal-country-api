@@ -56,3 +56,7 @@ java -jar target/country-api-1.0.0.jar
 ```
 mvn spring-boot:run
 ```
+
+# API Documentation
+* For the API documentation, there is a postman collection in project root directory named: `Supertal-Country-API.postman_collection.json`
+* To see the API list we have to import the postman collection.
