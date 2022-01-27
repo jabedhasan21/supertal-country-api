@@ -62,6 +62,7 @@ public class DatabaseSeeder {
     @Bean
     @SuppressWarnings("unchecked")
     public Boolean run(MongoTemplate mongoTemplate) throws IOException {
+        mongoTemplate.dropCollection("users");
         JSONParser parser = getJsonParser();
         Map<String, Object> jsonMap = parser.parseJson(convertSeedDataInputStreamToString());
         ObjectMapper mapper = new ObjectMapper();
