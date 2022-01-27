@@ -10,7 +10,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.supertal</groupId>
-    <artifactId>assignment</artifactId>
+    <artifactId>country-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>supertal-assignment</name>
     <description>This is a technical assignment for supertal</description>
