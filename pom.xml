@@ -12,7 +12,7 @@
     <groupId>com.supertal</groupId>
     <artifactId>country-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>supertal-assignment</name>
+    <name>supertal-country-api</name>
     <description>This is a technical assignment for supertal</description>
     <properties>
         <java.version>11</java.version>
