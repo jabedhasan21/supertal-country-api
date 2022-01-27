@@ -1,7 +1,6 @@
 package com.supertal.countryapi.controller;
 
 import com.supertal.countryapi.model.Country;
-import com.supertal.countryapi.service.CountryService;
 import com.supertal.countryapi.service.impl.CountryServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

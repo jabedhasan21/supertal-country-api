@@ -2,15 +2,20 @@ package com.supertal.countryapi.service.impl;
 
 import com.supertal.countryapi.exception.EntityNotFoundException;
 import com.supertal.countryapi.model.Country;
+import com.supertal.countryapi.model.QueryLogs;
 import com.supertal.countryapi.model.restcountries.RestCurrencyResponse;
 import com.supertal.countryapi.model.fixer.FixerCurrencyResponse;
 import com.supertal.countryapi.model.restcountries.RestCountryResponse;
+import com.supertal.countryapi.repository.QueryLogsRepository;
 import com.supertal.countryapi.service.CountryService;
 import com.supertal.countryapi.service.CurrencyRateService;
 import com.supertal.countryapi.service.FixerServiceGenerator;
 import com.supertal.countryapi.service.RestCountryService;
 import com.supertal.countryapi.service.CountryServiceGenerator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -23,11 +28,14 @@ import java.util.Map;
  * @created on 24/01/2022 - 12:27
  */
 
+@RequiredArgsConstructor
 @Service
 public class CountryServiceImpl implements CountryService {
 
     @Value("${fixer.access_key:''}")
     private String fixerAccessKey;
+
+    private final QueryLogsRepository queryLogsRepository;
 
     @Override
     public Country getByName(String name) throws Exception {
@@ -61,6 +69,19 @@ public class CountryServiceImpl implements CountryService {
         if (fixerCurrencyResponse != null) {
             country.setCurrencyRate(fixerCurrencyResponse);
         }
+        addQueryLogs(country);
         return country;
+    }
+
+    private void addQueryLogs(Country country) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            System.out.println("Principal: " + authentication.getPrincipal());
+            QueryLogs queryLogs = new QueryLogs();
+            queryLogs.setCountry(country);
+            queryLogs.setUserEmail(authentication.getPrincipal().toString());
+            queryLogsRepository.save(queryLogs);
+        }
     }
 }
