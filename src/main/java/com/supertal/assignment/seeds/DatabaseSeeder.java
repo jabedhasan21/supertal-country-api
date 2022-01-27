@@ -4,9 +4,11 @@ import com.codesnippets4all.json.parsers.JSONParser;
 import com.codesnippets4all.json.parsers.JsonParserFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.supertal.assignment.repository.UserRepository;
 import org.bson.Document;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,6 +38,8 @@ import java.util.Map;
  */
 @Configuration
 public class DatabaseSeeder {
+
+
     @Value("classpath:/seed-data.json")
     private Resource seedData;
 
