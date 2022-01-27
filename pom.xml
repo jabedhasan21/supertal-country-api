@@ -17,9 +17,15 @@
     <properties>
         <java.version>11</java.version>
         <retrofit.version>2.9.0</retrofit.version>
+        <quick-json.version>1.0.4</quick-json.version>
     </properties>
     <dependencies>
 
+        <dependency>
+            <groupId>com.codesnippets4all</groupId>
+            <artifactId>quick-json</artifactId>
+            <version>${quick-json.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>retrofit</artifactId>
